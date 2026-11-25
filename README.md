@@ -1,57 +1,44 @@
 # Math Drill
 
+[![CI](https://github.com/aman25singh/math-drill/actions/workflows/ci.yml/badge.svg)](https://github.com/aman25singh/math-drill/actions/workflows/ci.yml)
+![Python 3.10–3.12](https://img.shields.io/badge/python-3.10%E2%80%933.12-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 **A timed arithmetic drill that tells you *which digits* are slowing you down.**
 
 Most drill apps give you a score. This one logs every answer with millisecond
-timing and keeps the operands as numbers, not just as a rendered string — so it
-can go back and answer questions a score never can:
+timing, keeps the operands as numbers rather than as a rendered string, and
+engineers features from them: which digits appear, whether an addition carries,
+whether a subtraction borrows, how big the operands are. That lets it answer
+questions a score never can. From my own practice log:
 
-> Operands containing a **9** cost you **4.98s** on average.
-> Operands containing a **1** cost you **3.44s**.
+> Operands containing a **9** cost me **4.98s** on average.
+> Operands containing a **1** cost me **3.44s**.
 
-That is the point of the project. The drill exists to generate the data; the
-feature extraction is what makes the data worth having. Both numbers above are
-read straight off the first chart — it is the evidence for the claim, not an
-illustration of it.
+![Eight-panel analytics dashboard: time by operation, digit heatmap, time vs operand size, rolling response time, accuracy by time bucket, slowest patterns, session summary, error distribution](Data/Demo_current.png)
 
-**Average time and error rate for every operand digit, 1–9:**
+<sub>Dashboard shown with labelled synthetic data. Regenerate it with
+`python -m scripts.render_demo`.</sub>
 
-![Heatmap of average answer time and error rate per operand digit](Data/Demo_1.png)
+**Highlights**
 
-**Answer time against the size of the larger operand, coloured by correctness:**
+- **Feature engineering on raw answers**: digit presence, carries, borrows, operand size and
+  spread, with each feature compared against its own opposite.
+- **Eight-panel analytics dashboard** built with pandas, matplotlib and seaborn.
+- **Clean architecture**: the drill logic, analysis and storage import neither Tkinter nor
+  matplotlib, so they run headless.
+- **Tested and audited**: pytest, ruff and pip-audit run in GitHub Actions CI on Python 3.10–3.12.
+- **Safe storage**: atomic writes, schema validation and loading of older log formats.
 
-![Scatter plot of answer time versus larger operand](Data/Demo_2.png)
+## Why I built this
 
-> **About those screenshots:** they are real measurements, but they are dated.
-> Both were produced by an earlier version of the charting code against a much
-> larger practice log that is no longer in this repo, so they do not match
-> today's output: the tool now draws all eight panels as a single 2×4 figure,
-> and the heatmap's second column is called `error_rate` rather than
-> `incorrect_rate`. Session logs are local and gitignored; a fresh checkout has
-> no practice data. See [How much data you need](#how-much-data-you-need).
-
----
-
-## Why I Built This
-As someone preparing for quantitative finance and data-intensive roles, I wanted a tool that not only drills arithmetic speed but also tracks and analyzes improvement over time.
-
-This project combines my interests in Python development, data visualization, and performance optimization into a practical, interactive tool.
-
-It’s designed to:
-- Simulate high-pressure, time-bound calculations common in finance, analytics, and tech assessments
-- Provide data-backed insights to identify strengths and weaknesses
-- Demonstrate my ability to build complete, user-friendly applications with analytics capability
+Timed mental-math tests are a standard screen for quantitative finance and trading
+roles. Practice sites give you a score, but they don't tell you *what* to practice.
+I wanted the data to show where my time actually goes.
 
 ---
 
 ## What it measures
-
-**Current eight-panel layout, using clearly labelled synthetic data:**
-
-![Current analytics overview with eight panels, generated from synthetic demo sessions](Data/Demo_current.png)
-
-Regenerate this illustration with `python -m scripts.render_demo` from the
-project root. It does not read or modify your practice log.
 
 Every answered question is scored against a set of derived features, and each
 feature is compared **against its own opposite** — the difference is the
@@ -87,6 +74,25 @@ features are **binned**, and each bin is compared against the overall mean.
 
 Panels that do not have enough data yet say so in place rather than rendering an
 empty or misleading chart.
+
+### Charts from my real practice log
+
+These come from an earlier version of the charting code and a larger practice log that
+isn't in the repo (session logs are gitignored), so their layout differs slightly from
+today's output. The numbers quoted at the top are read off the first chart.
+
+<details>
+<summary>Show charts</summary>
+
+**Average time and error rate for every operand digit, 1–9:**
+
+![Heatmap of average answer time and error rate per operand digit](Data/Demo_1.png)
+
+**Answer time against the size of the larger operand, coloured by correctness:**
+
+![Scatter plot of answer time versus larger operand](Data/Demo_2.png)
+
+</details>
 
 ## Install
 
