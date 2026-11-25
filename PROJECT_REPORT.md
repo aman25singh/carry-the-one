@@ -1,7 +1,9 @@
-# Math Drill — Technical Report
+# Carry the One — Technical Report
+
+*Written when the project was called Math Drill.*
 
 **Date:** 2026-08-29
-**Repository:** `github.com/xelaaaa999/math-drill`
+**Repository:** `github.com/aman25singh/carry-the-one`
 **Scope:** code review, data-model assessment, defect list, and a plan for a web version
 
 | | |
@@ -18,7 +20,7 @@
 ## Implementation review — 2026-09-13
 
 The report below is a historical review of the original three-file app. The
-current checkout already contains the `mathdrill` package, pure-logic tests,
+current checkout already contains the `carry_the_one` package, pure-logic tests,
 pinned dependencies, MIT license, repository hygiene, and most desktop fixes.
 Desktop verification is the agreed scope; web tasks W01–W08 remain deferred.
 

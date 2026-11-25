@@ -1,4 +1,4 @@
-"""Math Drill: timed mental-arithmetic drills with per-question timing analysis.
+"""Carry the One: timed mental-arithmetic drills with per-question timing analysis.
 
 The interesting part of this project is not the drill, it is the record it
 keeps. Every answered question is stored with its operands held separately

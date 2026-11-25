@@ -10,8 +10,8 @@ import json
 
 import pytest
 
-from mathdrill import storage
-from mathdrill.storage import SessionDataError
+from carry_the_one import storage
+from carry_the_one.storage import SessionDataError
 
 
 def valid_record(name="s1"):
@@ -168,3 +168,42 @@ def test_data_file_is_absolute(monkeypatch):
     """
     monkeypatch.delenv(storage.DATA_DIR_ENV, raising=False)
     assert storage.data_file().is_absolute()
+
+
+# ------------------------------------------------------- pre-rename locations
+
+
+@pytest.fixture
+def installed(tmp_path, monkeypatch):
+    """Pretend to be pip-installed, with an isolated per-user data directory."""
+    monkeypatch.setattr(storage, "_project_root", lambda: None)
+    monkeypatch.delenv(storage.DATA_DIR_ENV, raising=False)
+    monkeypatch.delenv(storage.LEGACY_DATA_DIR_ENV, raising=False)
+    monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path))
+    monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
+    return tmp_path
+
+
+def test_new_installs_use_the_new_directory(installed):
+    assert storage.data_dir() == installed / storage.APP_DIR
+
+
+def test_existing_history_under_the_old_name_is_still_found(installed):
+    old = installed / storage.LEGACY_APP_DIR / storage.FILENAME
+    storage.append_session(valid_record("before rename"), old)
+    storage.append_session(valid_record("after rename"))
+    names = [s["session_name"] for s in storage.load_sessions()]
+    assert names == ["before rename", "after rename"]
+
+
+def test_new_directory_wins_when_both_have_a_log(installed):
+    for name in (storage.APP_DIR, storage.LEGACY_APP_DIR):
+        storage.append_session(valid_record(), installed / name / storage.FILENAME)
+    assert storage.data_dir() == installed / storage.APP_DIR
+
+
+def test_old_environment_variable_still_works_but_new_one_wins(installed, monkeypatch):
+    monkeypatch.setenv(storage.LEGACY_DATA_DIR_ENV, str(installed / "old"))
+    assert storage.data_dir() == installed / "old"
+    monkeypatch.setenv(storage.DATA_DIR_ENV, str(installed / "new"))
+    assert storage.data_dir() == installed / "new"

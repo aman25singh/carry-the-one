@@ -5,8 +5,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from mathdrill import game_frame
-from mathdrill.core import DrillConfig, DrillSession
+from carry_the_one import game_frame
+from carry_the_one.core import DrillConfig, DrillSession
 
 
 @pytest.fixture

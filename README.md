@@ -1,6 +1,6 @@
-# Math Drill
+# Carry the One
 
-[![CI](https://github.com/aman25singh/math-drill/actions/workflows/ci.yml/badge.svg)](https://github.com/aman25singh/math-drill/actions/workflows/ci.yml)
+[![CI](https://github.com/aman25singh/carry-the-one/actions/workflows/ci.yml/badge.svg)](https://github.com/aman25singh/carry-the-one/actions/workflows/ci.yml)
 ![Python 3.10–3.12](https://img.shields.io/badge/python-3.10%E2%80%933.12-blue)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -59,7 +59,7 @@ features are **binned**, and each bin is compared against the overall mean.
 
 ### What the charts show
 
-`math-drill-insights` renders one 2×4 figure with these eight panels:
+`carry-the-one-insights` renders one 2×4 figure with these eight panels:
 
 | Panel | |
 |---|---|
@@ -99,8 +99,8 @@ today's output. The numbers quoted at the top are read off the first chart.
 Requires **Python 3.10+**.
 
 ```sh
-git clone https://github.com/aman25singh/math-drill.git
-cd math-drill
+git clone https://github.com/aman25singh/carry-the-one.git
+cd carry-the-one
 python -m venv .venv
 .venv\Scripts\activate        # Windows
 source .venv/bin/activate     # macOS / Linux
@@ -131,33 +131,34 @@ The python.org installers for Windows and macOS include it already.
 ## Run
 
 ```sh
-math-drill                          # the drill
-math-drill-insights                 # analyse every session
-math-drill-insights "<session>"     # analyse one session
+carry-the-one                          # the drill
+carry-the-one-insights                 # analyse every session
+carry-the-one-insights "<session>"     # analyse one session
 ```
 
 Equivalently, without the console entry points:
 
 ```sh
-python -m mathdrill.app
-python -m mathdrill.insights
+python -m carry_the_one.app
+python -m carry_the_one.insights
 ```
 
 Useful flags:
 
 ```sh
-math-drill-insights --file path/to/session_insights.json
-math-drill-insights --save charts.png     # write a PNG instead of opening a window
+carry-the-one-insights --file path/to/session_insights.json
+carry-the-one-insights --save charts.png     # write a PNG instead of opening a window
 ```
 
 ## Where your data goes
 
 Sessions are appended to `session_insights.json`, resolved in this order:
 
-1. `$MATHDRILL_DATA_DIR`, if set.
+1. `$CARRY_THE_ONE_DATA_DIR`, if set. The old `$MATHDRILL_DATA_DIR` still works.
 2. `<repo>/Data/` when running from a source checkout.
-3. A per-user data directory (`%LOCALAPPDATA%\math-drill` on Windows,
-   `~/.local/share/math-drill` elsewhere) when pip-installed.
+3. A per-user data directory (`%LOCALAPPDATA%\carry-the-one` on Windows,
+   `~/.local/share/carry-the-one` elsewhere) when pip-installed. If only the old
+   `math-drill` directory has a log, that one is used.
 
 The path is always absolute. It used to be the bare relative string
 `"Data/session_insights.json"`, so where a session got saved depended on
@@ -238,7 +239,7 @@ rather than a decision. It is now a checkbox on the setup screen
 ## Project layout
 
 ```
-mathdrill/
+carry_the_one/
   __init__.py    package docstring and __version__
   core.py        drill logic: config, question generation, scoring, records
   features.py    feature extraction and metrics (pandas; no plotting)

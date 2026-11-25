@@ -9,8 +9,8 @@ import random
 
 import pytest
 
-from mathdrill import core
-from mathdrill.core import ConfigError, DrillConfig, DrillSession
+from carry_the_one import core
+from carry_the_one.core import ConfigError, DrillConfig, DrillSession
 
 ALL_OPS = ("add", "sub", "mul", "div")
 

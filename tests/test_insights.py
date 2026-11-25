@@ -8,7 +8,7 @@ matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
 
-from mathdrill.insights import main
+from carry_the_one.insights import main
 
 
 def test_cli_filters_and_renders_one_question(tmp_path, capsys):

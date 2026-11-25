@@ -1,8 +1,8 @@
-"""Tkinter frontend for Math Drill.
+"""Tkinter frontend for Carry the One.
 
 Owns windows and widgets. Configuration is validated by
-:class:`mathdrill.core.DrillConfig`, and analysis is delegated to
-:mod:`mathdrill.insights`.
+:class:`carry_the_one.core.DrillConfig`, and analysis is delegated to
+:mod:`carry_the_one.insights`.
 """
 
 from __future__ import annotations
@@ -217,7 +217,7 @@ class SpeedDrillApp(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.title("Arithmetic Speed Drill")
+        self.title("Carry the One")
         self.configure(bg="white")
         self.config_frame = ConfigFrame(self, self.start_game, self.view_overall_analysis)
         self.config_frame.pack()
@@ -231,11 +231,11 @@ class SpeedDrillApp(tk.Tk):
     def _run_insights(self, session_name: str | None = None):
         """Open the analysis in a separate process.
 
-        ``-m mathdrill.insights`` resolves through the installed package rather
+        ``-m carry_the_one.insights`` resolves through the installed package rather
         than a bare relative filename, so it works regardless of the working
         directory the app was launched from.
         """
-        command = [sys.executable, "-m", "mathdrill.insights"]
+        command = [sys.executable, "-m", "carry_the_one.insights"]
         if session_name:
             command.append(session_name)
         subprocess.run(command, cwd=os.path.dirname(os.path.dirname(__file__)) or None)

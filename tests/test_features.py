@@ -10,8 +10,8 @@ import math
 import pandas as pd
 import pytest
 
-from mathdrill import features
-from mathdrill.features import NoDataError
+from carry_the_one import features
+from carry_the_one.features import NoDataError
 
 
 def answer(

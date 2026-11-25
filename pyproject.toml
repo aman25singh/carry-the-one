@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "math-drill"
+name = "carry-the-one"
 version = "0.2.0"
 description = "Timed mental-arithmetic drills with per-question timing analysis."
 readme = "README.md"
@@ -46,16 +46,16 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/aman25singh/math-drill"
-Repository = "https://github.com/aman25singh/math-drill"
-Issues = "https://github.com/aman25singh/math-drill/issues"
+Homepage = "https://github.com/aman25singh/carry-the-one"
+Repository = "https://github.com/aman25singh/carry-the-one"
+Issues = "https://github.com/aman25singh/carry-the-one/issues"
 
 [project.scripts]
-math-drill = "mathdrill.app:main"
-math-drill-insights = "mathdrill.insights:main"
+carry-the-one = "carry_the_one.app:main"
+carry-the-one-insights = "carry_the_one.insights:main"
 
 [tool.setuptools]
-packages = ["mathdrill"]
+packages = ["carry_the_one"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

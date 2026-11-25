@@ -1,7 +1,7 @@
 """Tkinter frame that runs a drill.
 
 Deliberately thin. Every rule about what a question is, what counts as an
-answer, and how the session is scored lives in :mod:`mathdrill.core`; this
+answer, and how the session is scored lives in :mod:`carry_the_one.core`; this
 file owns widgets, the countdown, and nothing else.
 """
 
@@ -44,7 +44,7 @@ class GameFrame(tk.Frame):
         self._end_job = None
 
         master.geometry("600x400")
-        master.title("Speed Drill")
+        master.title("Carry the One")
         master.config(bg=BG)
         self.config(bg=BG)
 

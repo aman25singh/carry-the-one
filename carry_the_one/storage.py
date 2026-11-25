@@ -12,7 +12,13 @@ import os
 import tempfile
 from pathlib import Path
 
-DATA_DIR_ENV = "MATHDRILL_DATA_DIR"
+DATA_DIR_ENV = "CARRY_THE_ONE_DATA_DIR"
+APP_DIR = "carry-the-one"
+
+# Names used before the project was renamed. Still honoured so that existing
+# session history is not orphaned.
+LEGACY_DATA_DIR_ENV = "MATHDRILL_DATA_DIR"
+LEGACY_APP_DIR = "math-drill"
 FILENAME = "session_insights.json"
 
 REQUIRED_RECORD_FIELDS = (
@@ -50,15 +56,15 @@ def data_dir() -> Path:
 
     Resolution order:
 
-    1. ``$MATHDRILL_DATA_DIR`` if set.
+    1. ``$CARRY_THE_ONE_DATA_DIR`` if set, then the old ``$MATHDRILL_DATA_DIR``.
     2. ``<repo>/Data`` when running from a source checkout.
-    3. A per-user data directory.
+    3. A per-user data directory, or the pre-rename one if only that has a log.
 
     Previously the path was the bare relative string ``"Data/..."``, so where
     a session got saved depended on the working directory the app happened to
     be launched from.
     """
-    override = os.environ.get(DATA_DIR_ENV)
+    override = os.environ.get(DATA_DIR_ENV) or os.environ.get(LEGACY_DATA_DIR_ENV)
     if override:
         return Path(override).expanduser()
 
@@ -68,9 +74,13 @@ def data_dir() -> Path:
 
     if os.name == "nt":
         base = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local"))
-        return base / "math-drill"
-    base = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
-    return base / "math-drill"
+    else:
+        base = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
+
+    current, legacy = base / APP_DIR, base / LEGACY_APP_DIR
+    if not (current / FILENAME).exists() and (legacy / FILENAME).exists():
+        return legacy
+    return current
 
 
 def data_file() -> Path:

@@ -1,7 +1,7 @@
 """Charts for a drill log.
 
 Plotting only. Every number shown here is computed by
-:mod:`mathdrill.features`, which is importable and testable on its own.
+:mod:`carry_the_one.features`, which is importable and testable on its own.
 
 This module used to run its whole body at import time, with no
 ``if __name__ == "__main__"`` guard, so importing it opened a chart window and
@@ -173,8 +173,8 @@ def _placeholder(ax, title, message):
 def main(argv: list[str] | None = None) -> int:
     """Load, analyse, and show. Returns a process exit code."""
     parser = argparse.ArgumentParser(
-        prog="math-drill-insights",
-        description="Analyse Math Drill sessions and show the charts.",
+        prog="carry-the-one-insights",
+        description="Analyse Carry the One sessions and show the charts.",
     )
     parser.add_argument(
         "session_name",

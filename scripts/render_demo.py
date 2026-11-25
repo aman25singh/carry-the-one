@@ -12,9 +12,9 @@ matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
 
-from mathdrill.core import DrillConfig, build_answer_record, generate_question
-from mathdrill.features import compute_insight_flags, to_dataframe
-from mathdrill.insights import build_figure
+from carry_the_one.core import DrillConfig, build_answer_record, generate_question
+from carry_the_one.features import compute_insight_flags, to_dataframe
+from carry_the_one.insights import build_figure
 
 
 def main():
