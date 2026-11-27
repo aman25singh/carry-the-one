@@ -280,6 +280,11 @@ how a known CVE in the pinned `pytest` went unnoticed.
 `pytest` treats `FutureWarning` and `DeprecationWarning` as errors, so pandas
 and seaborn deprecations surface as test failures rather than console noise.
 
+## Roadmap and changes
+
+- [ROADMAP.md](ROADMAP.md): what's planned, one theme per release
+- [CHANGELOG.md](CHANGELOG.md): what changed in each version
+
 ## License
 
 [MIT](LICENSE)
